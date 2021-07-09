@@ -7,23 +7,9 @@ comment
 
 // Compile on command line `cargo run`
 
+// Global Variables
+
 /*
-Data Types - https://doc.rust-lang.org/book/ch03-02-data-types.html
-Important to specify data types for readability and performance optimization
-
-Integer 
-8bit - 128bit
-Use unsigned when number will never be negative
-Use f for floating-point numbers
-i8 | u16 | f32
-isize/usize used for indexing collections
-Defaults to i32 or f64
-let x: i64 = 1234567890
-
-Boolean
-let t: bool = true;
-
-```
 Constants are global variables that cannot be changed
 They are always declared outside of the main function
 Must declare type of variable
@@ -32,48 +18,76 @@ Declare a constant: const NAME:type = value;
 
 const GLOBAL_VARIABLE:i32 = 10;
 
+/*
+Data Types - https://doc.rust-lang.org/book/ch03-02-data-types.html
+Important to specify data types for readability and performance optimization
+
+Integer 
+
+8bit - 128bit
+Use unsigned when number will never be negative
+Use f for floating-point numbers
+i8 | u16 | f32
+isize/usize used for indexing collections
+Defaults to i32 or f64
+let x: i64 = 1234567890;
+
+Boolean
+
+let t: bool = true;
+*/
+
 // Enum declaration (addressed below)
+
+/*
 enum Direction {
     Up,
     Down,
     Left,
     Right
 }
+*/
 
 // fn main is part of every Rust project
 fn main() {
 
-    // Print to console when program is compiled
+ // Print to console when program is compiled
     println!("Hello, World!");
 
-    println!("The global variable is {}, remember?", GLOBAL_VARIABLE);
+ /* 
+Print a variable within a string with brackets {} in place of the variable name
+After the string is closed place a comma, followed by the name/s of the variable/s used
+let one = 1; let two = 2; let three = 3;
+ println!("Counting down: {} {} {}..., three, two, one ");
+*/
 
-    // Declare a variable: let name = value;
+    println!("The global variable is {}", GLOBAL_VARIABLE);
+
+// Declare a variable: let name = value;
 
     let x = 45;
 
-    // let mut x = 45;
+ // let mut x = 45;
 
-    println!("Number:{}", x);
+    println!("x = {}", x);
 
-    // x = 60;
+ // x = 60;
 
-    // println!("Mutable number:{}", x);
+ // println!("Now x = {}", x);
 
-    /* 
-    All Rust variables are non-mutable 
-    Uncomment lines 59 and 61
-    `cargo run` throws error
-    Uncomment line 55
-    Comment out line 53
-    `cargo run` prints "Mutable number: 60"
-    */
+/* 
+All Rust variables are non-mutable 
+Uncomment lines 74 & 76
+`cargo run` throws error
+Uncomment line 70
+Comment out line 68
+`cargo run` prints both values of x
+*/
 
-    // If/else
+// If Statements
 
     let n = 35;
 
-    
     if n == 20 {
         println!("{} is equal to the magic number", n);
     } else if n < 30 {
@@ -82,7 +96,7 @@ fn main() {
         println!("{} is greater than the magic number", n);
     }     
 
-    // Loop
+ // Loop
 
     let mut n = 0;
 
@@ -96,94 +110,103 @@ fn main() {
             // Stop iteration
             break;
         }
-        println!("{}", n);
+        println!("Loop: {}", n);
     }
 
-    // While Loop
+ // While Loop
 
     let mut w = 1; 
 
     while w <= 50 {
-            if w % 13 == 0 {
-            println!("{} is divisible by 13!", w);
+            if w % 17 == 0 {
+            println!("{} is divisible by 17!", w);
         }
         w += 1;
     }
 
     // For Loop
 
-    for i in 1..6 {
+    for i in 1..4 {
         println!("Count:{}", i);
     }
 
-    println!("Declare a range and call a variable in your loop");
+// Declare a vector and loop through strings
 
     let animals  = vec!["Frog","Dog","Cat"];
 
+// Must include .iter() method to iterate through vector and .enumerate() method to print index
     for (index, a) in animals.iter().enumerate() {
             println!("{}. {}", index, a);
         }
     
-    // Accessing Enums (defined outside of main function, line 10)
+ // Accessing Enums (defined outside of main function, line 42)
 
-    // let name:enum_Name = enum_name::enum_value
-    let player_direction:Direction = Direction::Up;
-    
-    // Similar to switch statement 
+/* 
+Uncomment lines 42-48 & 150-159
+`run cargo` throws 3 default warnings for dead code (unused directions)
+let name:enum_Name = enum_name::enum_value
+*/
+
+    // let player_direction:Direction = Direction::Up;
+
+ /*
     match player_direction {
         Direction::Up => println!("Moving up"),
         Direction::Down => println!("Moving down"),
         Direction::Left => println!("Moving left"),
         Direction::Right => println!("Moving right"),
-
     }
+*/
 
-    // Tuples/Nested Tuples (are these arrays/nested arrays in js?)
+ // Tuples/Nested Tuples
 
     let tuple = (20, 30, (40, 50), 60);
 
-    // Zero-indexed, prints "30" then "50"
+// Zero-indexed, prints "30" then "50"
 
-    println!("{}", tuple.1);
-    println!("{}", (tuple.2).1);
+    println!("Tuple 1 ={}", tuple.1);
+    println!("Tuple 2.1 = {}", (tuple.2).1);
 
-    // Define new tuple and switch values
+ // Define a tuple equal to tuple above and print switched values
 
     let (a, b, c, d) = tuple;
 
+//   prints 20, 30, 40 and 50, 60 
     println!("a is {}", a);
     println!("b is {}", b);
     println!("c is {} and {}", c.0, c.1);
     println!("d is {}", d);
 
-    // Scope
+ // Code Block Scope
 
     let z = 10;
-
-    // Code Block
 
     {
         let z_scoped = 11;
         println!("z = {}, z_scoped = {}", z, z_scoped);
     }
 
-    // println!("{} {}", z, z_scoped)    
-    // Uncomment Line 173, throws error because z_scoped is only valid inside code block
-    
-    // Shadowing
+    // println!("{} {}", z, z_scoped)  
+
+ // Uncomment Line 189, throws error because z_scoped is only valid inside code block
+
+ // Shadowing
 
     let mut s = 10;
+    println!("s = {} before code block ", s);
 
     {
-        // Reassigns value of s to 15
+        // Reassigns value of s to 15 that is valid outside of code block
         s = 15;
-        // Comment out Line 179, uncomment Line 181, s = 15 only inside of code block
+
+        // Comment out Line 199, uncomment Line 202, now  s = 15 only inside of code block
         // let s = 15;
+        println!("s = {} inside code block", s);
     }
 
-    println!("s equals {} now", s);
+    println!("s = {} after code block", s);
 
-    // References - refer to same data with multiple variables
+// References - refer to same data with multiple variables
 
     let mut f = 10;
 
